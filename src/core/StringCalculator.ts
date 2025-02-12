@@ -4,6 +4,8 @@ export class StringCalculator {
             return 0;
         }
 
+        numbers = numbers.replace(/\n/g, ',');
+
         const parsedNumbers = numbers
             .split(",")
             .map(Number)

@@ -1,9 +1,7 @@
 import { StringCalculator } from "../../core/StringCalculator";
 
 describe("String Calculator", () => {
-
     describe("two numbers, separated by commas, and will return their sum", () => {
-
         test("should return 0 for an empty string", () => {
             expect(StringCalculator.Add("")).toBe(0);
         });
@@ -20,9 +18,14 @@ describe("String Calculator", () => {
             expect(StringCalculator.Add("3,4")).toBe(7);
             expect(StringCalculator.Add("5,5")).toBe(10);
         });
+    });
 
+    describe("allow unknown amount of numbers", () => {
+        test("should handle multiple numbers separated by comma", () => {
+            expect(StringCalculator.Add("1, 2, 3, 4, 5")).toEqual(15);
+            expect(StringCalculator.Add("4, 4, 4, 4, 4")).toEqual(20);
+        });
     });
 
     
-
 });

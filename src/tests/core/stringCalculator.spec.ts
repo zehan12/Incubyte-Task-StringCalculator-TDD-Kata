@@ -74,12 +74,18 @@ describe("String Calculator", () => {
         });
     });
 
-    describe("ignore number bigger than 1000",()=>{
-        test("should handle number bigger than 1000",()=>{
+    describe("ignore number bigger than 1000", () => {
+        test("should handle number bigger than 1000", () => {
             expect(StringCalculator.Add("2,1001")).toBe(2);
             expect(StringCalculator.Add("2,1000")).toBe(1002);
             expect(StringCalculator.Add("1,2,3000")).toBe(3);
             expect(StringCalculator.Add("//;\n1000;2")).toBe(1002);
-        })
-    })
+        });
+    });
+
+    describe("allow lengthy delimiter", () => {
+        test("should handle lengthy delimiter", () => {
+            expect(StringCalculator.Add("//[***]\n1***2***3")).toBe(6);
+        });
+    });
 });

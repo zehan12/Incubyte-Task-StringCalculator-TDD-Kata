@@ -10,7 +10,18 @@ export class StringCalculator {
             const expression = numbers.split("\n", 2);
             const start = expression[0];
             numbers = expression[1];
-            delimiter = start.substring(2);
+
+            const startBracket = start.indexOf("[");
+            const endBracket = start.indexOf("]");
+            if (
+                startBracket !== -1 &&
+                endBracket !== -1 &&
+                startBracket < endBracket
+            ) {
+                delimiter = start.substring(startBracket + 1, endBracket);
+            } else {
+                delimiter = start.substring(2);
+            }
         }
 
         numbers = numbers.replace(/\n/g, delimiter);

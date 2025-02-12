@@ -4,14 +4,27 @@ export class StringCalculator {
             return 0;
         }
 
-        numbers = numbers.replace(/\n/g, ',');
+        let delimiter = ",";
 
-        if (numbers.includes(',,') || numbers.endsWith(',')) {
+        if (numbers.startsWith("//")) {
+            const expression = numbers.split("\n", 2);
+            const start = expression[0];
+            numbers = expression[1];
+            delimiter = start.substring(2);
+        }
+
+        numbers = numbers.replace(/\n/g, delimiter);
+
+        if (
+            numbers.startsWith(delimiter) ||
+            numbers.endsWith(delimiter) ||
+            numbers.includes(`${delimiter}${delimiter}`)
+        ) {
             throw new Error("Invalid input.");
         }
 
         const parsedNumbers = numbers
-            .split(",")
+            .split(delimiter)
             .map(Number)
             .filter((n) => !isNaN(n));
         return parsedNumbers.reduce((sum, num) => sum + num, 0);

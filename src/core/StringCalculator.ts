@@ -27,6 +27,15 @@ export class StringCalculator {
             .split(delimiter)
             .map(Number)
             .filter((n) => !isNaN(n));
+
+        const negatives = parsedNumbers.filter((n) => n < 0);
+        if (negatives.length > 0) {
+            if (negatives.length === 1) {
+                throw new Error("negative not allowed");
+            }
+            throw new Error(`negatives not allowed: ${negatives.join(", ")}`);
+        }
+
         return parsedNumbers.reduce((sum, num) => sum + num, 0);
     }
 }

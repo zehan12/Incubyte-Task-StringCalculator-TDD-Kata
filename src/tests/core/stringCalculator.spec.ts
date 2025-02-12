@@ -57,4 +57,20 @@ describe("String Calculator", () => {
         });
     });
 
+    describe("negative numbers are not allowed", () => {
+        test("should handle single negative number", () => {
+            expect(() => StringCalculator.Add("//;\n1;-2")).toThrow(
+                Error("negative not allowed")
+            );
+            expect(() => StringCalculator.Add("1\n11\n-111")).toThrow(
+                Error("negative not allowed")
+            );
+        });
+
+        test("should handle multiple negative numbers", () => {
+            expect(() => StringCalculator.Add("-1,-2,-3")).toThrow(
+                Error("negatives not allowed: -1, -2, -3")
+            );
+        });
+    });
 });

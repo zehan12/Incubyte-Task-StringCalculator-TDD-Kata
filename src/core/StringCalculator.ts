@@ -5,22 +5,31 @@ export class StringCalculator {
         }
 
         let delimiter = ",";
-
         if (numbers.startsWith("//")) {
             const expression = numbers.split("\n", 2);
             const start = expression[0];
             numbers = expression[1];
 
-            const startBracket = start.indexOf("[");
-            const endBracket = start.indexOf("]");
-            if (
-                startBracket !== -1 &&
-                endBracket !== -1 &&
-                startBracket < endBracket
-            ) {
-                delimiter = start.substring(startBracket + 1, endBracket);
-            } else {
+            let startBracket = start.indexOf("[");
+            const delimiters = [];
+            while (startBracket !== -1) {
+                const endBracket = start.indexOf("]", startBracket);
+                if (endBracket === -1) break;
+                const customDelimiter = start.substring(
+                    startBracket + 1,
+                    endBracket
+                );
+                delimiters.push(customDelimiter);
+                startBracket = start.indexOf("[", endBracket);
+            }
+
+            if (delimiters.length === 0 && start.length > 2) {
                 delimiter = start.substring(2);
+            } else {
+                delimiters.forEach((customDelimiter) => {
+                    numbers = numbers.split(customDelimiter).join(",");
+                });
+                delimiter = ",";
             }
         }
 

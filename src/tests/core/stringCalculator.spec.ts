@@ -88,4 +88,10 @@ describe("String Calculator", () => {
             expect(StringCalculator.Add("//[***]\n1***2***3")).toBe(6);
         });
     });
+
+    describe("allow multiple delimiter", () => {
+        test("should handle multiple delimiter", () => {
+            expect(StringCalculator.Add("//[*][%]\n1*2%3")).toBe(6);
+        });
+    });
 });

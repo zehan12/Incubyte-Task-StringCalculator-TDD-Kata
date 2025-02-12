@@ -28,11 +28,17 @@ describe("String Calculator", () => {
     });
 
     describe("allow the Add method to handle new lines between numbers (instead of commas)", () => {
-        test('should handle new lines between numbers', () => {
+        
+        test("should handle new lines between numbers", () => {
             expect(StringCalculator.Add("1\n2,3")).toBe(6);
             expect(StringCalculator.Add("1\n11\n111")).toBe(123);
         });
-    });
 
-    
+        test("should reject invalid inputs", () => {
+            expect(() => StringCalculator.Add("1,\n")).toThrow(
+                Error("Invalid input.")
+            );
+        });
+        
+    });
 });

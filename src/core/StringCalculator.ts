@@ -3,6 +3,11 @@ export class StringCalculator {
         if (numbers.trim() === "") {
             return 0;
         }
-        return 1;
+
+        if (numbers.length === 1 && !isNaN(+numbers)) {
+            return +numbers
+        }
+
+        return 0;
     }
 }

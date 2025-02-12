@@ -8,6 +8,12 @@ describe("String Calculator", () => {
             expect(StringCalculator.Add("")).toBe(0);
         });
 
+        test("should return the number itself for a single number", () => {
+            expect(StringCalculator.Add("1")).toBe(1);
+            expect(StringCalculator.Add("3")).toBe(3);
+            expect(StringCalculator.Add("7")).toBe(7);
+        });
+
     });
 
 });

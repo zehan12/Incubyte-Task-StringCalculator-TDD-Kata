@@ -1,9 +1,14 @@
+import Button from "./components/button/Button";
+
 function App() {
+  const handleClick = () => {
+    alert("You have clicked the button!");
+  };
   return (
-    <>
-      <h1>String Calculator</h1>
-    </>
-  )
+    <main role="main">
+      <Button label="Click" onClick={handleClick} />
+    </main>
+  );
 }
 
-export default App
+export default App;

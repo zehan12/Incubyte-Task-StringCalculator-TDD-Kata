@@ -26,7 +26,7 @@ export class StringCalculator {
         const parsedNumbers = numbers
             .split(delimiter)
             .map(Number)
-            .filter((n) => !isNaN(n));
+            .filter((n) => !isNaN(n) && n <= 1000);
 
         const negatives = parsedNumbers.filter((n) => n < 0);
         if (negatives.length > 0) {

@@ -44,6 +44,17 @@ describe("String Calculator", () => {
         test("should handle custom delimiters", () => {
             expect(StringCalculator.Add("//;\n1;2")).toBe(3);
         });
+
+        test("should handle default delimiter", () => {
+            expect(StringCalculator.Add("1,2,3")).toBe(6);
+            expect(StringCalculator.Add("1\n2,3")).toBe(6);
+        });
+
+        test("should reject inputs with custom delimiters", () => {
+            expect(() => StringCalculator.Add("//;\n1;;2")).toThrow(
+                Error("Invalid input.")
+            );
+        });
     });
-    
+
 });

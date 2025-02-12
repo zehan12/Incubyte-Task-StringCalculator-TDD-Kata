@@ -14,6 +14,13 @@ describe("String Calculator", () => {
             expect(StringCalculator.Add("7")).toBe(7);
         });
 
+        test("should handle two numbers separated by a comma", () => {
+            expect(StringCalculator.Add("1,5")).toBe(6);
+            expect(StringCalculator.Add("1,2")).toBe(3);
+            expect(StringCalculator.Add("3,4")).toBe(7);
+            expect(StringCalculator.Add("5,5")).toBe(10);
+        });
+
     });
 
 });

@@ -1,34 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --background: 106 67% 100%;
+    --foreground: 106 62% 2%;
+    --muted: 226 28% 88%;
+    --muted-foreground: 226 5% 37%;
+    --popover: 0 0% 99%;
+    --popover-foreground: 106 62% 1%;
+    --card: 0 0% 99%;
+    --card-foreground: 106 62% 1%;
+    --border: 106 6% 92%;
+    --input: 106 6% 92%;
+    --primary: 106 26% 32%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 226 26% 32%;
+    --secondary-foreground: 226 26% 92%;
+    --accent: 346 26% 32%;
+    --accent-foreground: 346 26% 92%;
+    --destructive: 10 90% 25%;
+    --destructive-foreground: 10 90% 85%;
+    --ring: 106 26% 32%;
+    --chart-1: 106 26% 32%;
+    --chart-2: 226 26% 32%;
+    --chart-3: 346 26% 32%;
+    --chart-4: 226 26% 35%;
+    --chart-5: 106 29% 32%;
+    --radius: 0.5rem;
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -56,11 +58,35 @@
     --chart-5: 340 75% 55%
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  --s: 140px;
+  /* control the size */
+  --c1: #ab3e5b;
+  --c2: #ffbe40;
+
+  --_g: #0000 25%, #0008 47%, var(--c1) 53% 147%, var(--c2) 153% 247%,
+    var(--c1) 253% 347%, var(--c2) 353% 447%, var(--c1) 453% 547%, #0008 553%,
+    #0000 575%;
+  --_s: calc(25% / 3) calc(25% / 4) at 50%;
+  background: radial-gradient(var(--_s) 100%, var(--_g)),
+    radial-gradient(var(--_s) 100%, var(--_g)) calc(var(--s) / 2) calc(3 * var(--s) / 4),
+    radial-gradient(var(--_s) 0, var(--_g)) calc(var(--s) / 2) 0,
+    radial-gradient(var(--_s) 0, var(--_g)) 0 calc(3 * var(--s) / 4),
+    repeating-linear-gradient(90deg,
+      #accec0 calc(25% / -6) calc(25% / 6),
+      #61a6ab 0 calc(25% / 2));
+  background-size: var(--s) calc(3 * var(--s) / 2);
 }

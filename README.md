@@ -7,6 +7,7 @@ The String Calculator TTD Kata is a popular coding exercise designed to help dev
 The goal of this kata is to create a simple String Calculator with a method Add(string numbers) that takes a string input and returns the sum of the numbers in the string. The implementation should evolve incrementally, following TDD principles.
 
 ## Hosted Link
+https://stringcalculatortddkata.vercel.app/
 
 ## Frontend UI for Testing
 

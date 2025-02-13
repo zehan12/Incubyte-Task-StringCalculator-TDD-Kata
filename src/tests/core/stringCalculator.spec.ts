@@ -35,7 +35,7 @@ describe("String Calculator", () => {
 
         test("should reject invalid inputs", () => {
             expect(() => StringCalculator.Add("1,\n")).toThrow(
-                Error("Invalid input.")
+                Error("Invalid input format.")
             );
         });
     });
@@ -52,7 +52,7 @@ describe("String Calculator", () => {
 
         test("should reject inputs with custom delimiters", () => {
             expect(() => StringCalculator.Add("//;\n1;;2")).toThrow(
-                Error("Invalid input.")
+                Error("Invalid input format.")
             );
         });
     });
@@ -60,16 +60,16 @@ describe("String Calculator", () => {
     describe("negative numbers are not allowed", () => {
         test("should handle single negative number", () => {
             expect(() => StringCalculator.Add("//;\n1;-2")).toThrow(
-                Error("negative not allowed")
+                Error("Negative numbers are not allowed.")
             );
             expect(() => StringCalculator.Add("1\n11\n-111")).toThrow(
-                Error("negative not allowed")
+                Error("Negative numbers are not allowed.")
             );
         });
 
         test("should handle multiple negative numbers", () => {
             expect(() => StringCalculator.Add("-1,-2,-3")).toThrow(
-                Error("negatives not allowed: -1, -2, -3")
+                Error("Negative numbers are not allowed: -1, -2, -3")
             );
         });
     });
@@ -94,6 +94,60 @@ describe("String Calculator", () => {
             expect(StringCalculator.Add("//[*][%]\n1*2%3")).toBe(6);
             expect(StringCalculator.Add("//[***][###]\n1***2###3")).toBe(6);
             expect(StringCalculator.Add("//[$$$][XXX]\n10$$$20XXX30")).toBe(60);
+        });
+    });
+
+    describe("handle invalid inputs", () => {
+        test("should reject non-numeric values", () => {
+            expect(() => StringCalculator.Add("abc")).toThrow(
+                Error("Invalid input: Non-numeric values found: abc")
+            );
+            expect(() => StringCalculator.Add("1,abc,3")).toThrow(
+                Error("Invalid input: Non-numeric values found: abc")
+            );
+        });
+    });
+
+    describe("handle full coverage", () => {
+        test("should handle missing newline after custom delimiter declaration", () => {
+            expect(() => StringCalculator.Add("//;1;2")).toThrow(
+                Error(
+                    "Invalid input format: missing newline after delimiter declaration."
+                )
+            );
+        });
+
+        test("should reject empty custom delimiters", () => {
+            expect(() => StringCalculator.Add("//[]\n1,2")).toThrow(
+                Error("Invalid input format.")
+            );
+        });
+
+        test("should reject malformed custom delimiter declarations", () => {
+            expect(() => StringCalculator.Add("//[;\n1;2")).toThrow(
+                Error("Invalid input: Non-numeric values found: 1;2")
+            );
+        });
+
+        test("should handle excessive whitespace around numbers", () => {
+            expect(StringCalculator.Add(" 1 , 2 , 3 ")).toBe(6);
+        });
+
+        test("should handle whitespace around custom delimiters", () => {
+            expect(StringCalculator.Add("// ; \n 1 ; 2 ; 3 ")).toBe(6);
+        });
+
+        test("should handle mixed delimiters with whitespace", () => {
+            expect(StringCalculator.Add("//[*][%]\n 1 * 2 % 3 ")).toBe(6);
+        });
+
+        test("should reject consecutive delimiters", () => {
+            expect(() => StringCalculator.Add("1,,2")).toThrow(
+                Error("Invalid input format.")
+            );
+            expect(() => StringCalculator.Add("//;\n1;;2")).toThrow(
+                Error("Invalid input format.")
+            );
         });
     });
 });

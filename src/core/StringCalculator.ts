@@ -6,30 +6,39 @@ export class StringCalculator {
 
         let delimiter = ",";
         if (numbers.startsWith("//")) {
-            const expression = numbers.split("\n", 2);
-            const start = expression[0];
-            numbers = expression[1];
-
-            let startBracket = start.indexOf("[");
-            const delimiters = [];
-            while (startBracket !== -1) {
-                const endBracket = start.indexOf("]", startBracket);
-                if (endBracket === -1) break;
-                const customDelimiter = start.substring(
-                    startBracket + 1,
-                    endBracket
+            const parts = numbers.split("\n", 2);
+            if (parts.length < 2) {
+                throw new Error(
+                    "Invalid input format: missing newline after delimiter declaration."
                 );
-                delimiters.push(customDelimiter);
-                startBracket = start.indexOf("[", endBracket);
             }
+            const [delimiterSection, remainingNumbers] = parts;
+            numbers = remainingNumbers;
 
-            if (delimiters.length === 0 && start.length > 2) {
-                delimiter = start.substring(2);
-            } else {
+            if (delimiterSection.startsWith("//[")) {
+                // Handle custom delimiters enclosed in brackets
+                const delimiters = [];
+                let startBracket = delimiterSection.indexOf("[");
+                while (startBracket !== -1) {
+                    const endBracket = delimiterSection.indexOf(
+                        "]",
+                        startBracket
+                    );
+                    if (endBracket === -1) break;
+                    const customDelimiter = delimiterSection.substring(
+                        startBracket + 1,
+                        endBracket
+                    );
+                    delimiters.push(customDelimiter);
+                    startBracket = delimiterSection.indexOf("[", endBracket);
+                }
                 delimiters.forEach((customDelimiter) => {
                     numbers = numbers.split(customDelimiter).join(",");
                 });
                 delimiter = ",";
+            } else if (delimiterSection.length > 2) {
+                // Handle single-character custom delimiters
+                delimiter = delimiterSection.substring(2);
             }
         }
 
@@ -40,20 +49,32 @@ export class StringCalculator {
             numbers.endsWith(delimiter) ||
             numbers.includes(`${delimiter}${delimiter}`)
         ) {
-            throw new Error("Invalid input.");
+            throw new Error("Invalid input format.");
         }
 
-        const parsedNumbers = numbers
-            .split(delimiter)
+        const numArray = numbers.split(delimiter).map((num) => num.trim());
+        const invalidEntries = numArray.filter((n) => n && isNaN(Number(n)));
+
+        if (invalidEntries.length > 0) {
+            throw new Error(
+                `Invalid input: Non-numeric values found: ${invalidEntries.join(
+                    ", "
+                )}`
+            );
+        }
+
+        const parsedNumbers = numArray
             .map(Number)
             .filter((n) => !isNaN(n) && n <= 1000);
 
         const negatives = parsedNumbers.filter((n) => n < 0);
         if (negatives.length > 0) {
             if (negatives.length === 1) {
-                throw new Error("negative not allowed");
+                throw new Error("Negative numbers are not allowed.");
             }
-            throw new Error(`negatives not allowed: ${negatives.join(", ")}`);
+            throw new Error(
+                `Negative numbers are not allowed: ${negatives.join(", ")}`
+            );
         }
 
         return parsedNumbers.reduce((sum, num) => sum + num, 0);

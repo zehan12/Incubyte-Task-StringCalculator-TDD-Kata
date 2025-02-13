@@ -7,6 +7,7 @@ const config: Config = {
         "!src/**/hooks/*.{ts,tsx}",
         "!src/**/lib/*.{ts,tsx}",
         "!src/**/components/ui/*.{ts,tsx}",
+        "!src/**/components/seo/*.{ts,tsx}",
         "!src/**/*.d.ts",
         "!**/vendor/**",
     ],

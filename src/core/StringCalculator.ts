@@ -77,6 +77,9 @@ export class StringCalculator {
             );
         }
 
+        if (delimiter === "*") {
+            return parsedNumbers.reduce((acc, num) => acc * num, 1);
+        }
         return parsedNumbers.reduce((sum, num) => sum + num, 0);
     }
 }

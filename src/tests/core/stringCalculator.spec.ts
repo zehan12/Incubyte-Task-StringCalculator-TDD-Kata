@@ -43,6 +43,7 @@ describe("String Calculator", () => {
     describe("allow support for different delimiters", () => {
         test("should handle custom delimiters", () => {
             expect(StringCalculator.Add("//;\n1;2")).toBe(3);
+            expect(StringCalculator.Add("//*\n2*3")).toBe(6);
         });
 
         test("should handle default delimiter", () => {
